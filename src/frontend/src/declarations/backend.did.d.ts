@@ -10,33 +10,28 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface AnswerOption { 'englishText' : string, 'hindiText' : string }
+export interface AnswerOption { 'text' : string, 'dimension' : string }
 export interface PersonalityType {
-  'englishFamousExamples' : Array<string>,
-  'englishStrengths' : Array<string>,
-  'hindiDescription' : string,
+  'weaknesses' : Array<string>,
+  'strengths' : Array<string>,
+  'famousExamples' : Array<string>,
   'code' : string,
-  'englishName' : string,
-  'hindiName' : string,
-  'englishDescription' : string,
-  'category' : string,
-  'hindiFamousExamples' : Array<string>,
-  'englishWeaknesses' : Array<string>,
-  'hindiWeaknesses' : Array<string>,
-  'hindiStrengths' : Array<string>,
+  'name' : string,
+  'description' : string,
+  'likes' : Array<string>,
+  'dislikes' : Array<string>,
 }
 export interface QuizQuestion {
+  'id' : bigint,
+  'text' : string,
   'answerOptions' : Array<AnswerOption>,
   'dimension' : string,
-  'englishText' : string,
-  'hindiText' : string,
 }
 export interface _SERVICE {
   'calculatePersonalityType' : ActorMethod<[Array<bigint>], string>,
   'getAllPersonalityTypes' : ActorMethod<[], Array<PersonalityType>>,
   'getAllQuizQuestions' : ActorMethod<[], Array<QuizQuestion>>,
   'getPersonalityTypeByCode' : ActorMethod<[string], PersonalityType>,
-  'getQuizQuestionById' : ActorMethod<[string], QuizQuestion>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

@@ -3,22 +3,21 @@ import Order "mo:core/Order";
 import Array "mo:core/Array";
 import Map "mo:core/Map";
 import Iter "mo:core/Iter";
+import Migration "migration";
 import Runtime "mo:core/Runtime";
 
+// Enable automatic migration
+(with migration = Migration.run)
 actor {
   type PersonalityType = {
     code : Text;
-    englishName : Text;
-    hindiName : Text;
-    englishDescription : Text;
-    hindiDescription : Text;
-    englishStrengths : [Text];
-    hindiStrengths : [Text];
-    englishWeaknesses : [Text];
-    hindiWeaknesses : [Text];
-    englishFamousExamples : [Text];
-    hindiFamousExamples : [Text];
-    category : Text;
+    name : Text;
+    description : Text;
+    strengths : [Text];
+    weaknesses : [Text];
+    likes : [Text];
+    dislikes : [Text];
+    famousExamples : [Text];
   };
 
   module PersonalityType {
@@ -28,31 +27,37 @@ actor {
   };
 
   type AnswerOption = {
-    englishText : Text;
-    hindiText : Text;
+    text : Text;
+    dimension : Text; // "E", "I", "S", "N", "T", "F", "J", "P"
   };
 
   module AnswerOption {
     public func compare(option1 : AnswerOption, option2 : AnswerOption) : Order.Order {
-      Text.compare(option1.englishText, option2.englishText);
+      Text.compare(option1.text, option2.text);
     };
   };
 
   type QuizQuestion = {
-    englishText : Text;
-    hindiText : Text;
+    id : Nat;
+    text : Text;
     dimension : Text; // "EI", "SN", "TF", "JP"
     answerOptions : [AnswerOption];
   };
 
   module QuizQuestion {
     public func compare(question1 : QuizQuestion, question2 : QuizQuestion) : Order.Order {
-      Text.compare(question1.englishText, question2.englishText);
+      if (question1.id < question2.id) {
+        return #less;
+      };
+      if (question1.id > question2.id) {
+        return #greater;
+      };
+      #equal;
     };
   };
 
   let personalityTypes = Map.empty<Text, PersonalityType>();
-  let quizQuestions = Map.empty<Text, QuizQuestion>();
+  let quizQuestions = Map.empty<Nat, QuizQuestion>();
 
   public query ({ caller }) func getAllPersonalityTypes() : async [PersonalityType] {
     personalityTypes.values().toArray();
@@ -69,18 +74,11 @@ actor {
     quizQuestions.values().toArray();
   };
 
-  public query ({ caller }) func getQuizQuestionById(id : Text) : async QuizQuestion {
-    switch (quizQuestions.get(id)) {
-      case (null) { Runtime.trap("Quiz question does not exist") };
-      case (?quizQuestion) { quizQuestion };
-    };
-  };
-
   public func calculatePersonalityType(answers : [Nat]) : async Text {
-    let ei = answers.sliceToArray(0, 3);
-    let sn = answers.sliceToArray(3, 6);
-    let tf = answers.sliceToArray(6, 9);
-    let jp = answers.sliceToArray(9, 12);
+    let ei = answers.sliceToArray(0, 5);
+    let sn = answers.sliceToArray(5, 10);
+    let tf = answers.sliceToArray(10, 15);
+    let jp = answers.sliceToArray(15, 20);
 
     let eiSum = ei.foldLeft(0, func(sum, answer) { sum + answer });
     let snSum = sn.foldLeft(0, func(sum, answer) { sum + answer });
@@ -89,9 +87,9 @@ actor {
 
     var personalityType = "";
 
-    personalityType := personalityType # (if (eiSum > 1) { "E" } else { "I" });
-    personalityType := personalityType # (if (snSum > 1) { "S" } else { "N" });
-    personalityType := personalityType # (if (tfSum > 1) { "T" } else { "F" });
-    personalityType # (if (jpSum > 1) { "J" } else { "P" });
+    personalityType := personalityType # (if (eiSum > 2) { "E" } else { "I" });
+    personalityType := personalityType # (if (snSum > 2) { "S" } else { "N" });
+    personalityType := personalityType # (if (tfSum > 2) { "T" } else { "F" });
+    personalityType # (if (jpSum > 2) { "J" } else { "P" });
   };
 };

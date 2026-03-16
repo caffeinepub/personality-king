@@ -1,6 +1,34 @@
-import type { PersonalityType } from "../backend.d";
+// Local bilingual type — does NOT extend backend PersonalityType to avoid conflicts
+export interface LocalPersonalityType {
+  code: string;
+  category: string;
+  englishName: string;
+  hindiName: string;
+  englishDescription: string;
+  hindiDescription: string;
+  englishStrengths: string[];
+  hindiStrengths: string[];
+  englishWeaknesses: string[];
+  hindiWeaknesses: string[];
+  englishLikes: string[];
+  hindiLikes: string[];
+  englishDislikes: string[];
+  hindiDislikes: string[];
+  englishFamousExamples: string[];
+  hindiFamousExamples: string[];
+}
 
-export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
+export interface LocalQuizQuestion {
+  englishText: string;
+  hindiText: string;
+  dimension: string;
+  answerOptions: Array<{
+    englishText: string;
+    hindiText: string;
+  }>;
+}
+
+export const STATIC_PERSONALITY_TYPES: LocalPersonalityType[] = [
   {
     code: "INTJ",
     category: "Analysts",
@@ -31,6 +59,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "Stubborn",
     ],
     hindiWeaknesses: ["अहंकारी", "भावनाओं को नकारना", "अत्यधिक निजी", "जिद्दी"],
+    englishLikes: [
+      "Long-term planning",
+      "Intellectual debates",
+      "Solitude",
+      "Reading and research",
+      "Complex challenges",
+    ],
+    hindiLikes: [
+      "दीर्घकालिक योजना",
+      "बौद्धिक बहस",
+      "एकांत",
+      "पढ़ना और शोध",
+      "जटिल चुनौतियाँ",
+    ],
+    englishDislikes: [
+      "Small talk",
+      "Inefficiency",
+      "Emotional outbursts",
+      "Following orders blindly",
+      "Interruptions",
+    ],
+    hindiDislikes: [
+      "बेकार की बातें",
+      "अक्षमता",
+      "भावनात्मक विस्फोट",
+      "अंधे आदेश का पालन",
+      "बाधाएं",
+    ],
     englishFamousExamples: ["Elon Musk", "Isaac Newton", "Nikola Tesla"],
     hindiFamousExamples: ["एलन मस्क", "आइज़क न्यूटन", "निकोला टेस्ला"],
   },
@@ -64,6 +120,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "Impatient",
     ],
     hindiWeaknesses: ["असंवेदनशील", "अनुपस्थित-दिमाग", "अहंकारी", "अधीर"],
+    englishLikes: [
+      "Philosophy and theory",
+      "Brain puzzles",
+      "Sci-fi and fantasy",
+      "Working alone",
+      "Abstract concepts",
+    ],
+    hindiLikes: [
+      "दर्शन और सिद्धांत",
+      "मस्तिष्क पहेलियाँ",
+      "विज्ञान-कथा",
+      "अकेले काम करना",
+      "अमूर्त अवधारणाएं",
+    ],
+    englishDislikes: [
+      "Social obligations",
+      "Strict rules",
+      "Emotional decisions",
+      "Repetitive tasks",
+      "Rigid structure",
+    ],
+    hindiDislikes: [
+      "सामाजिक दायित्व",
+      "कड़े नियम",
+      "भावनात्मक निर्णय",
+      "दोहराव वाले कार्य",
+      "कठोर संरचना",
+    ],
     englishFamousExamples: ["Albert Einstein", "Bill Gates", "Charles Darwin"],
     hindiFamousExamples: ["अल्बर्ट आइंस्टीन", "बिल गेट्स", "चार्ल्स डार्विन"],
   },
@@ -86,6 +170,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
     hindiStrengths: ["प्राकृतिक नेता", "कुशल", "रणनीतिक", "करिश्माई", "आत्मविश्वासी"],
     englishWeaknesses: ["Stubborn", "Dominant", "Impatient", "Cold"],
     hindiWeaknesses: ["जिद्दी", "प्रभुत्वशाली", "अधीर", "ठंडे"],
+    englishLikes: [
+      "Leadership roles",
+      "Goal-setting",
+      "Strategic planning",
+      "Debates",
+      "Challenges",
+    ],
+    hindiLikes: [
+      "नेतृत्व की भूमिकाएं",
+      "लक्ष्य निर्धारण",
+      "रणनीतिक योजना",
+      "बहस",
+      "चुनौतियाँ",
+    ],
+    englishDislikes: [
+      "Laziness",
+      "Incompetence",
+      "Lack of ambition",
+      "Emotional reasoning",
+      "Indecisiveness",
+    ],
+    hindiDislikes: [
+      "आलस्य",
+      "अक्षमता",
+      "महत्वाकांक्षा की कमी",
+      "भावनात्मक तर्क",
+      "अनिर्णायकता",
+    ],
     englishFamousExamples: [
       "Napoleon Bonaparte",
       "Steve Jobs",
@@ -117,6 +229,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "Risk-prone",
     ],
     hindiWeaknesses: ["तर्कशील", "असंवेदनशील", "अव्यवस्थित", "जोखिम-प्रवण"],
+    englishLikes: [
+      "Brainstorming",
+      "Devil's advocacy",
+      "New projects",
+      "Witty banter",
+      "Innovation",
+    ],
+    hindiLikes: [
+      "विचार-मंथन",
+      "तर्क-वितर्क",
+      "नई परियोजनाएं",
+      "चतुर बातचीत",
+      "नवाचार",
+    ],
+    englishDislikes: [
+      "Routine tasks",
+      "Being ignored",
+      "Narrow-mindedness",
+      "Rigid rules",
+      "Boredom",
+    ],
+    hindiDislikes: [
+      "नियमित कार्य",
+      "अनदेखा किया जाना",
+      "संकीर्णता",
+      "कठोर नियम",
+      "ऊब",
+    ],
     englishFamousExamples: ["Benjamin Franklin", "Mark Twain", "Celine Dion"],
     hindiFamousExamples: ["बेंजामिन फ्रैंकलिन", "मार्क ट्वेन", "सेलीन डियोन"],
   },
@@ -144,6 +284,28 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "Burnout-prone",
     ],
     hindiWeaknesses: ["पूर्णतावादी", "संवेदनशील", "अत्यधिक निजी", "थकान-प्रवण"],
+    englishLikes: [
+      "Meaningful conversations",
+      "Art and creativity",
+      "Helping others",
+      "Solitude",
+      "Deep reading",
+    ],
+    hindiLikes: [
+      "अर्थपूर्ण बातचीत",
+      "कला और रचनात्मकता",
+      "दूसरों की मदद",
+      "एकांत",
+      "गहन पठन",
+    ],
+    englishDislikes: [
+      "Conflict",
+      "Superficiality",
+      "Criticism of values",
+      "Crowds",
+      "Dishonesty",
+    ],
+    hindiDislikes: ["संघर्ष", "सतहीपन", "मूल्यों की आलोचना", "भीड़", "बेईमानी"],
     englishFamousExamples: [
       "Martin Luther King Jr.",
       "Nelson Mandela",
@@ -186,6 +348,28 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "अव्यावहारिक",
       "भावनात्मक रूप से कमज़ोर",
     ],
+    englishLikes: [
+      "Writing and poetry",
+      "Nature walks",
+      "Music",
+      "Personal growth",
+      "Animal welfare",
+    ],
+    hindiLikes: [
+      "लेखन और कविता",
+      "प्रकृति में भ्रमण",
+      "संगीत",
+      "व्यक्तिगत विकास",
+      "पशु कल्याण",
+    ],
+    englishDislikes: [
+      "Injustice",
+      "Criticism",
+      "Conflict",
+      "Cold logic without empathy",
+      "Fakeness",
+    ],
+    hindiDislikes: ["अन्याय", "आलोचना", "संघर्ष", "सहानुभूति के बिना तर्क", "नकलीपन"],
     englishFamousExamples: [
       "J.R.R. Tolkien",
       "William Shakespeare",
@@ -232,6 +416,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "अहंकारी",
       "निर्णय में संघर्ष",
     ],
+    englishLikes: [
+      "Mentoring others",
+      "Community events",
+      "Storytelling",
+      "Social causes",
+      "Team collaboration",
+    ],
+    hindiLikes: [
+      "दूसरों का मार्गदर्शन",
+      "सामुदायिक कार्यक्रम",
+      "कहानी सुनाना",
+      "सामाजिक कारण",
+      "टीम सहयोग",
+    ],
+    englishDislikes: [
+      "Selfishness",
+      "Apathy",
+      "Conflict within teams",
+      "Being misunderstood",
+      "Dishonesty",
+    ],
+    hindiDislikes: [
+      "स्वार्थ",
+      "उदासीनता",
+      "टीम में संघर्ष",
+      "गलत समझा जाना",
+      "बेईमानी",
+    ],
     englishFamousExamples: ["Barack Obama", "Oprah Winfrey", "Morgan Freeman"],
     hindiFamousExamples: ["बराक ओबामा", "ओपरा विन्फ्रे", "मॉर्गन फ्रीमैन"],
   },
@@ -259,6 +471,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "Easily stressed",
     ],
     hindiWeaknesses: ["बिखरे हुए", "अत्यधिक भावुक", "अव्यवस्थित", "आसानी से तनावग्रस्त"],
+    englishLikes: [
+      "Meeting new people",
+      "Creative projects",
+      "Traveling",
+      "Brainstorming",
+      "Personal freedom",
+    ],
+    hindiLikes: [
+      "नए लोगों से मिलना",
+      "रचनात्मक परियोजनाएं",
+      "यात्रा",
+      "विचार-मंथन",
+      "व्यक्तिगत स्वतंत्रता",
+    ],
+    englishDislikes: [
+      "Routine",
+      "Feeling trapped",
+      "Negativity",
+      "Strict deadlines",
+      "Being alone too long",
+    ],
+    hindiDislikes: [
+      "नियमितता",
+      "फँसा हुआ महसूस करना",
+      "नकारात्मकता",
+      "सख्त समय-सीमा",
+      "अकेले बहुत समय",
+    ],
     englishFamousExamples: ["Robin Williams", "Walt Disney", "Will Smith"],
     hindiFamousExamples: ["रॉबिन विलियम्स", "वॉल्ट डिज्नी", "विल स्मिथ"],
   },
@@ -286,6 +526,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "Judgmental",
     ],
     hindiWeaknesses: ["जिद्दी", "असंवेदनशील", "हमेशा नियमों का पालन", "न्यायिक"],
+    englishLikes: [
+      "Order and structure",
+      "History",
+      "Loyalty",
+      "Completing tasks",
+      "Traditions",
+    ],
+    hindiLikes: [
+      "व्यवस्था और संरचना",
+      "इतिहास",
+      "वफादारी",
+      "कार्य पूर्ण करना",
+      "परंपराएं",
+    ],
+    englishDislikes: [
+      "Disorganization",
+      "Broken commitments",
+      "Last-minute changes",
+      "Irresponsibility",
+      "Guesswork",
+    ],
+    hindiDislikes: [
+      "अव्यवस्था",
+      "वादे तोड़ना",
+      "अंतिम समय के बदलाव",
+      "गैर-जिम्मेदारी",
+      "अनुमान लगाना",
+    ],
     englishFamousExamples: [
       "Queen Elizabeth II",
       "George Washington",
@@ -326,6 +594,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "अपनी ज़रूरतों की उपेक्षा",
       "बहुत परोपकारी",
     ],
+    englishLikes: [
+      "Family time",
+      "Cooking and hosting",
+      "Volunteering",
+      "Stable routines",
+      "Sentimental gifts",
+    ],
+    hindiLikes: [
+      "परिवार के साथ समय",
+      "खाना बनाना",
+      "स्वयंसेवा",
+      "स्थिर दिनचर्या",
+      "भावनात्मक उपहार",
+    ],
+    englishDislikes: [
+      "Conflict",
+      "Rudeness",
+      "Change without warning",
+      "Being unappreciated",
+      "Selfishness",
+    ],
+    hindiDislikes: [
+      "संघर्ष",
+      "अशिष्टता",
+      "बिना चेतावनी के बदलाव",
+      "सराहना न मिलना",
+      "स्वार्थ",
+    ],
     englishFamousExamples: ["Mother Teresa", "Kate Middleton", "Rosa Parks"],
     hindiFamousExamples: ["मदर टेरेसा", "केट मिडलटन", "रोज़ा पार्क्स"],
   },
@@ -357,6 +653,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "जिद्दी",
       "अपरंपरागत के साथ असहज",
       "स्थिति पर अत्यधिक ध्यान",
+    ],
+    englishLikes: [
+      "Being in charge",
+      "Clear rules",
+      "Completing goals",
+      "Community service",
+      "Reliability",
+    ],
+    hindiLikes: [
+      "जिम्मेदारी में होना",
+      "स्पष्ट नियम",
+      "लक्ष्य पूरे करना",
+      "सामुदायिक सेवा",
+      "विश्वसनीयता",
+    ],
+    englishDislikes: [
+      "Laziness",
+      "Chaos",
+      "Disrespect for authority",
+      "Emotional decision-making",
+      "Unreliability",
+    ],
+    hindiDislikes: [
+      "आलस्य",
+      "अराजकता",
+      "अधिकार का अपमान",
+      "भावनात्मक निर्णय",
+      "अविश्वसनीयता",
     ],
     englishFamousExamples: [
       "Henry Ford",
@@ -400,6 +724,28 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "आलोचना के प्रति कमज़ोर",
       "बहुत निःस्वार्थी",
     ],
+    englishLikes: [
+      "Social gatherings",
+      "Helping friends",
+      "Gift giving",
+      "Cooking for others",
+      "Harmony",
+    ],
+    hindiLikes: [
+      "सामाजिक मेलजोल",
+      "दोस्तों की मदद",
+      "उपहार देना",
+      "दूसरों के लिए खाना",
+      "सद्भाव",
+    ],
+    englishDislikes: [
+      "Conflict",
+      "Being ignored",
+      "Ingratitude",
+      "Rudeness",
+      "Isolation",
+    ],
+    hindiDislikes: ["संघर्ष", "अनदेखा किया जाना", "कृतघ्नता", "अशिष्टता", "अलगाव"],
     englishFamousExamples: ["Taylor Swift", "Jennifer Lopez", "Bill Clinton"],
     hindiFamousExamples: ["टेलर स्विफ्ट", "जेनिफर लोपेज़", "बिल क्लिंटन"],
   },
@@ -422,6 +768,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
     hindiStrengths: ["आशावादी", "तार्किक", "रचनात्मक", "व्यावहारिक", "आरामदेह"],
     englishWeaknesses: ["Stubborn", "Insensitive", "Private", "Easily bored"],
     hindiWeaknesses: ["जिद्दी", "असंवेदनशील", "निजी", "आसानी से ऊब जाना"],
+    englishLikes: [
+      "Tinkering with machines",
+      "Extreme sports",
+      "Problem-solving",
+      "Freedom",
+      "Hands-on projects",
+    ],
+    hindiLikes: [
+      "मशीनों के साथ काम",
+      "एक्सट्रीम खेल",
+      "समस्या समाधान",
+      "स्वतंत्रता",
+      "व्यावहारिक परियोजनाएं",
+    ],
+    englishDislikes: [
+      "Commitment",
+      "Emotional drama",
+      "Long-term planning",
+      "Bureaucracy",
+      "Rigid schedules",
+    ],
+    hindiDislikes: [
+      "प्रतिबद्धता",
+      "भावनात्मक नाटक",
+      "दीर्घकालिक योजना",
+      "नौकरशाही",
+      "कठोर कार्यक्रम",
+    ],
     englishFamousExamples: ["Clint Eastwood", "Michael Jordan", "Bruce Lee"],
     hindiFamousExamples: ["क्लिंट ईस्टवुड", "माइकल जॉर्डन", "ब्रूस ली"],
   },
@@ -460,6 +834,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "आसानी से तनावग्रस्त",
       "अत्यधिक प्रतिस्पर्धी",
     ],
+    englishLikes: [
+      "Art and music",
+      "Nature",
+      "Experiencing new things",
+      "Freedom of expression",
+      "Animals",
+    ],
+    hindiLikes: [
+      "कला और संगीत",
+      "प्रकृति",
+      "नई चीजें अनुभव करना",
+      "अभिव्यक्ति की स्वतंत्रता",
+      "जानवर",
+    ],
+    englishDislikes: [
+      "Criticism of their taste",
+      "Conflict",
+      "Abstract theory",
+      "Being controlled",
+      "Restrictions",
+    ],
+    hindiDislikes: [
+      "रुचि की आलोचना",
+      "संघर्ष",
+      "अमूर्त सिद्धांत",
+      "नियंत्रित होना",
+      "प्रतिबंध",
+    ],
     englishFamousExamples: ["Michael Jackson", "David Bowie", "Frida Kahlo"],
     hindiFamousExamples: ["माइकल जैक्सन", "डेविड बॉवी", "फ्रीदा काहलो"],
   },
@@ -485,6 +887,34 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "जोखिम-प्रवण",
       "असंरचित",
       "भावनात्मक संकेतों को याद कर सकते हैं",
+    ],
+    englishLikes: [
+      "Action and excitement",
+      "Sports",
+      "Business deals",
+      "Social activities",
+      "Improvising",
+    ],
+    hindiLikes: [
+      "क्रिया और उत्साह",
+      "खेल",
+      "व्यापारिक सौदे",
+      "सामाजिक गतिविधियां",
+      "तात्कालिक निर्णय",
+    ],
+    englishDislikes: [
+      "Sitting still",
+      "Theoretical discussions",
+      "Long planning sessions",
+      "Emotional sensitivity",
+      "Delays",
+    ],
+    hindiDislikes: [
+      "स्थिर बैठना",
+      "सैद्धांतिक चर्चाएं",
+      "लंबे योजना सत्र",
+      "भावनात्मक संवेदनशीलता",
+      "देरी",
     ],
     englishFamousExamples: ["Donald Trump", "Eddie Murphy", "Ernest Hemingway"],
     hindiFamousExamples: ["डोनाल्ड ट्रम्प", "एडी मर्फी", "अर्नेस्ट हेमिंग्वे"],
@@ -524,12 +954,40 @@ export const STATIC_PERSONALITY_TYPES: PersonalityType[] = [
       "दीर्घकालिक योजना में कमज़ोर",
       "अकेंद्रित",
     ],
+    englishLikes: [
+      "Performing",
+      "Parties and events",
+      "Fashion",
+      "Spontaneous trips",
+      "Making people laugh",
+    ],
+    hindiLikes: [
+      "प्रदर्शन करना",
+      "पार्टियां और कार्यक्रम",
+      "फैशन",
+      "अचानक यात्राएं",
+      "लोगों को हँसाना",
+    ],
+    englishDislikes: [
+      "Being alone",
+      "Abstract theory",
+      "Long-term plans",
+      "Negativity",
+      "Strict rules",
+    ],
+    hindiDislikes: [
+      "अकेलापन",
+      "अमूर्त सिद्धांत",
+      "दीर्घकालिक योजनाएं",
+      "नकारात्मकता",
+      "कड़े नियम",
+    ],
     englishFamousExamples: ["Adele", "Elvis Presley", "Jamie Oliver"],
     hindiFamousExamples: ["अडेले", "एल्विस प्रेस्ली", "जेमी ओलिवर"],
   },
 ];
 
-export const QUIZ_QUESTIONS = [
+export const QUIZ_QUESTIONS: LocalQuizQuestion[] = [
   {
     englishText: "At a social gathering, you prefer to:",
     hindiText: "एक सामाजिक समारोह में, आप क्या पसंद करते हैं?",

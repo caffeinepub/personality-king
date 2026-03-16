@@ -8,33 +8,28 @@ export interface None {
 }
 export type Option<T> = Some<T> | None;
 export interface AnswerOption {
-    englishText: string;
-    hindiText: string;
+    text: string;
+    dimension: string;
 }
 export interface QuizQuestion {
+    id: bigint;
+    text: string;
     answerOptions: Array<AnswerOption>;
     dimension: string;
-    englishText: string;
-    hindiText: string;
 }
 export interface PersonalityType {
-    englishFamousExamples: Array<string>;
-    englishStrengths: Array<string>;
-    hindiDescription: string;
+    weaknesses: Array<string>;
+    strengths: Array<string>;
+    famousExamples: Array<string>;
     code: string;
-    englishName: string;
-    hindiName: string;
-    englishDescription: string;
-    category: string;
-    hindiFamousExamples: Array<string>;
-    englishWeaknesses: Array<string>;
-    hindiWeaknesses: Array<string>;
-    hindiStrengths: Array<string>;
+    name: string;
+    description: string;
+    likes: Array<string>;
+    dislikes: Array<string>;
 }
 export interface backendInterface {
     calculatePersonalityType(answers: Array<bigint>): Promise<string>;
     getAllPersonalityTypes(): Promise<Array<PersonalityType>>;
     getAllQuizQuestions(): Promise<Array<QuizQuestion>>;
     getPersonalityTypeByCode(code: string): Promise<PersonalityType>;
-    getQuizQuestionById(id: string): Promise<QuizQuestion>;
 }

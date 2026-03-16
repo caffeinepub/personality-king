@@ -1,7 +1,14 @@
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link, useParams } from "@tanstack/react-router";
-import { AlertTriangle, ArrowLeft, Star, User } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowLeft,
+  Heart,
+  Star,
+  ThumbsDown,
+  User,
+} from "lucide-react";
 import { motion } from "motion/react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { getCategoryClass, getCategoryImage } from "../data/personalityData";
@@ -58,6 +65,8 @@ export default function TypeDetailPage() {
   const strengths = lang === "en" ? type.englishStrengths : type.hindiStrengths;
   const weaknesses =
     lang === "en" ? type.englishWeaknesses : type.hindiWeaknesses;
+  const likes = lang === "en" ? type.englishLikes : type.hindiLikes;
+  const dislikes = lang === "en" ? type.englishDislikes : type.hindiDislikes;
   const famous =
     lang === "en" ? type.englishFamousExamples : type.hindiFamousExamples;
 
@@ -71,6 +80,7 @@ export default function TypeDetailPage() {
         <Link
           to="/types"
           search={{ category: undefined }}
+          data-ocid="types.back_button"
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-gold transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -78,6 +88,7 @@ export default function TypeDetailPage() {
         </Link>
       </motion.div>
 
+      {/* Header Card */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -104,15 +115,13 @@ export default function TypeDetailPage() {
           <h2 className="font-display text-2xl md:text-3xl font-semibold text-foreground/90 mb-1">
             {lang === "en" ? type.englishName : type.hindiName}
           </h2>
-          {lang === "en" && (
-            <p className="text-muted-foreground text-lg">{type.hindiName}</p>
-          )}
-          {lang === "hi" && (
-            <p className="text-muted-foreground text-lg">{type.englishName}</p>
-          )}
+          <p className="text-muted-foreground text-lg">
+            {lang === "en" ? type.hindiName : type.englishName}
+          </p>
         </div>
       </motion.div>
 
+      {/* Description */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -127,6 +136,7 @@ export default function TypeDetailPage() {
         </p>
       </motion.div>
 
+      {/* Strengths & Weaknesses */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -175,10 +185,60 @@ export default function TypeDetailPage() {
         </motion.div>
       </div>
 
+      {/* Likes & Dislikes */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+          className="card-regal rounded-xl p-6"
+        >
+          <h3 className="font-display text-xl font-bold text-pink-400 mb-4 flex items-center gap-2">
+            <Heart className="w-5 h-5" />
+            {t("Likes", "पसंद")}
+          </h3>
+          <ul className="space-y-2">
+            {likes.map((item) => (
+              <li
+                key={item}
+                className="flex items-center gap-2 text-foreground/85"
+              >
+                <span className="w-2 h-2 rounded-full bg-pink-400 flex-shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="card-regal rounded-xl p-6"
+        >
+          <h3 className="font-display text-xl font-bold text-red-400 mb-4 flex items-center gap-2">
+            <ThumbsDown className="w-5 h-5" />
+            {t("Dislikes", "नापसंद")}
+          </h3>
+          <ul className="space-y-2">
+            {dislikes.map((item) => (
+              <li
+                key={item}
+                className="flex items-center gap-2 text-foreground/85"
+              >
+                <span className="w-2 h-2 rounded-full bg-red-400 flex-shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      </div>
+
+      {/* Famous Examples */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
+        transition={{ duration: 0.5, delay: 0.45 }}
         className="card-regal rounded-xl p-6 mb-8"
       >
         <h3 className="font-display text-xl font-bold text-gold mb-4 flex items-center gap-2">
@@ -203,6 +263,7 @@ export default function TypeDetailPage() {
           <Badge
             variant="outline"
             className="text-accent border-accent/50 cursor-pointer hover:bg-accent/10 py-2 px-4"
+            data-ocid="types.all_link"
           >
             {t("← All Types", "← सभी प्रकार")}
           </Badge>
@@ -211,6 +272,7 @@ export default function TypeDetailPage() {
           <Badge
             variant="outline"
             className="text-gold border-gold/50 cursor-pointer hover:bg-gold/10 py-2 px-4"
+            data-ocid="types.quiz_link"
           >
             {t("Take the Quiz →", "क्विज़ लें →")}
           </Badge>

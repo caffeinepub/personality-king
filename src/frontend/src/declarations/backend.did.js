@@ -9,28 +9,24 @@
 import { IDL } from '@icp-sdk/core/candid';
 
 export const PersonalityType = IDL.Record({
-  'englishFamousExamples' : IDL.Vec(IDL.Text),
-  'englishStrengths' : IDL.Vec(IDL.Text),
-  'hindiDescription' : IDL.Text,
+  'weaknesses' : IDL.Vec(IDL.Text),
+  'strengths' : IDL.Vec(IDL.Text),
+  'famousExamples' : IDL.Vec(IDL.Text),
   'code' : IDL.Text,
-  'englishName' : IDL.Text,
-  'hindiName' : IDL.Text,
-  'englishDescription' : IDL.Text,
-  'category' : IDL.Text,
-  'hindiFamousExamples' : IDL.Vec(IDL.Text),
-  'englishWeaknesses' : IDL.Vec(IDL.Text),
-  'hindiWeaknesses' : IDL.Vec(IDL.Text),
-  'hindiStrengths' : IDL.Vec(IDL.Text),
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'likes' : IDL.Vec(IDL.Text),
+  'dislikes' : IDL.Vec(IDL.Text),
 });
 export const AnswerOption = IDL.Record({
-  'englishText' : IDL.Text,
-  'hindiText' : IDL.Text,
+  'text' : IDL.Text,
+  'dimension' : IDL.Text,
 });
 export const QuizQuestion = IDL.Record({
+  'id' : IDL.Nat,
+  'text' : IDL.Text,
   'answerOptions' : IDL.Vec(AnswerOption),
   'dimension' : IDL.Text,
-  'englishText' : IDL.Text,
-  'hindiText' : IDL.Text,
 });
 
 export const idlService = IDL.Service({
@@ -46,35 +42,30 @@ export const idlService = IDL.Service({
       [PersonalityType],
       ['query'],
     ),
-  'getQuizQuestionById' : IDL.Func([IDL.Text], [QuizQuestion], ['query']),
 });
 
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
   const PersonalityType = IDL.Record({
-    'englishFamousExamples' : IDL.Vec(IDL.Text),
-    'englishStrengths' : IDL.Vec(IDL.Text),
-    'hindiDescription' : IDL.Text,
+    'weaknesses' : IDL.Vec(IDL.Text),
+    'strengths' : IDL.Vec(IDL.Text),
+    'famousExamples' : IDL.Vec(IDL.Text),
     'code' : IDL.Text,
-    'englishName' : IDL.Text,
-    'hindiName' : IDL.Text,
-    'englishDescription' : IDL.Text,
-    'category' : IDL.Text,
-    'hindiFamousExamples' : IDL.Vec(IDL.Text),
-    'englishWeaknesses' : IDL.Vec(IDL.Text),
-    'hindiWeaknesses' : IDL.Vec(IDL.Text),
-    'hindiStrengths' : IDL.Vec(IDL.Text),
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'likes' : IDL.Vec(IDL.Text),
+    'dislikes' : IDL.Vec(IDL.Text),
   });
   const AnswerOption = IDL.Record({
-    'englishText' : IDL.Text,
-    'hindiText' : IDL.Text,
+    'text' : IDL.Text,
+    'dimension' : IDL.Text,
   });
   const QuizQuestion = IDL.Record({
+    'id' : IDL.Nat,
+    'text' : IDL.Text,
     'answerOptions' : IDL.Vec(AnswerOption),
     'dimension' : IDL.Text,
-    'englishText' : IDL.Text,
-    'hindiText' : IDL.Text,
   });
   
   return IDL.Service({
@@ -90,7 +81,6 @@ export const idlFactory = ({ IDL }) => {
         [PersonalityType],
         ['query'],
       ),
-    'getQuizQuestionById' : IDL.Func([IDL.Text], [QuizQuestion], ['query']),
   });
 };
 

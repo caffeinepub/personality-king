@@ -1,26 +1,23 @@
 # Personality King
 
 ## Current State
-New project — no existing code.
+No existing code. Fresh build.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Home page with royal/professional theme
-- All 16 MBTI personality type profiles with images
-- Each profile: name, description, strengths, weaknesses, famous examples
-- Bilingual content: English and Hindi
-- Language toggle (EN / HI)
+- All 16 MBTI personality type profiles with detailed info (strengths, weaknesses, likes, dislikes, famous examples)
 - Personality quiz to discover user's type
-- Navigation between types and quiz
+- Bilingual support: English and Hindi
+- Professional, stylish, trending UI with gold and blue color scheme
+- Navigation with clear sections: Home, Explore Types, Take Quiz, About
 
 ### Modify
-N/A
+- N/A
 
 ### Remove
-N/A
+- N/A
 
 ## Implementation Plan
-1. Backend: store 16 personality types with bilingual data, quiz questions
-2. Frontend: home page, type listing, type detail page, quiz flow, language toggle
-3. Images: generate or use placeholder images for each personality archetype
+1. Backend: store personality types data, quiz questions, compute quiz results
+2. Frontend: Home page, Personality Explorer (all 16 types with detail pages), Quiz feature, Language toggle (EN/HI)

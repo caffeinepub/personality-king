@@ -90,35 +90,30 @@ export class ExternalBlob {
     }
 }
 export interface AnswerOption {
-    englishText: string;
-    hindiText: string;
+    text: string;
+    dimension: string;
 }
 export interface QuizQuestion {
+    id: bigint;
+    text: string;
     answerOptions: Array<AnswerOption>;
     dimension: string;
-    englishText: string;
-    hindiText: string;
 }
 export interface PersonalityType {
-    englishFamousExamples: Array<string>;
-    englishStrengths: Array<string>;
-    hindiDescription: string;
+    weaknesses: Array<string>;
+    strengths: Array<string>;
+    famousExamples: Array<string>;
     code: string;
-    englishName: string;
-    hindiName: string;
-    englishDescription: string;
-    category: string;
-    hindiFamousExamples: Array<string>;
-    englishWeaknesses: Array<string>;
-    hindiWeaknesses: Array<string>;
-    hindiStrengths: Array<string>;
+    name: string;
+    description: string;
+    likes: Array<string>;
+    dislikes: Array<string>;
 }
 export interface backendInterface {
     calculatePersonalityType(answers: Array<bigint>): Promise<string>;
     getAllPersonalityTypes(): Promise<Array<PersonalityType>>;
     getAllQuizQuestions(): Promise<Array<QuizQuestion>>;
     getPersonalityTypeByCode(code: string): Promise<PersonalityType>;
-    getQuizQuestionById(id: string): Promise<QuizQuestion>;
 }
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
@@ -175,20 +170,6 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getPersonalityTypeByCode(arg0);
-            return result;
-        }
-    }
-    async getQuizQuestionById(arg0: string): Promise<QuizQuestion> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.getQuizQuestionById(arg0);
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.getQuizQuestionById(arg0);
             return result;
         }
     }

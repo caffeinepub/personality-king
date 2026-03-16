@@ -1,5 +1,8 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import type { PersonalityType, QuizQuestion } from "../backend.d";
+import type {
+  LocalPersonalityType,
+  LocalQuizQuestion,
+} from "../data/personalityData";
 import {
   QUIZ_QUESTIONS,
   STATIC_PERSONALITY_TYPES,
@@ -7,17 +10,11 @@ import {
 import { useActor } from "./useActor";
 
 export function useAllPersonalityTypes() {
-  const { actor, isFetching } = useActor();
-  return useQuery<PersonalityType[]>({
+  const { isFetching } = useActor();
+  return useQuery<LocalPersonalityType[]>({
     queryKey: ["personalityTypes"],
     queryFn: async () => {
-      if (!actor) return STATIC_PERSONALITY_TYPES;
-      try {
-        const result = await actor.getAllPersonalityTypes();
-        return result.length > 0 ? result : STATIC_PERSONALITY_TYPES;
-      } catch {
-        return STATIC_PERSONALITY_TYPES;
-      }
+      return STATIC_PERSONALITY_TYPES;
     },
     enabled: !isFetching,
     initialData: STATIC_PERSONALITY_TYPES,
@@ -25,38 +22,25 @@ export function useAllPersonalityTypes() {
 }
 
 export function usePersonalityType(code: string) {
-  const { actor, isFetching } = useActor();
-  return useQuery<PersonalityType | null>({
+  const { isFetching } = useActor();
+  return useQuery<LocalPersonalityType | null>({
     queryKey: ["personalityType", code],
     queryFn: async () => {
-      const fallback =
-        STATIC_PERSONALITY_TYPES.find((tp) => tp.code === code) ?? null;
-      if (!actor) return fallback;
-      try {
-        return await actor.getPersonalityTypeByCode(code);
-      } catch {
-        return fallback;
-      }
+      return STATIC_PERSONALITY_TYPES.find((tp) => tp.code === code) ?? null;
     },
     enabled: !!code && !isFetching,
   });
 }
 
 export function useQuizQuestions() {
-  const { actor, isFetching } = useActor();
-  return useQuery<QuizQuestion[]>({
+  const { isFetching } = useActor();
+  return useQuery<LocalQuizQuestion[]>({
     queryKey: ["quizQuestions"],
     queryFn: async () => {
-      if (!actor) return QUIZ_QUESTIONS as QuizQuestion[];
-      try {
-        const result = await actor.getAllQuizQuestions();
-        return result.length > 0 ? result : (QUIZ_QUESTIONS as QuizQuestion[]);
-      } catch {
-        return QUIZ_QUESTIONS as QuizQuestion[];
-      }
+      return QUIZ_QUESTIONS;
     },
     enabled: !isFetching,
-    initialData: QUIZ_QUESTIONS as QuizQuestion[],
+    initialData: QUIZ_QUESTIONS,
   });
 }
 
