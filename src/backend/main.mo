@@ -3,11 +3,11 @@ import Order "mo:core/Order";
 import Array "mo:core/Array";
 import Map "mo:core/Map";
 import Iter "mo:core/Iter";
-import Migration "migration";
+
 import Runtime "mo:core/Runtime";
 
 // Enable automatic migration
-(with migration = Migration.run)
+
 actor {
   type PersonalityType = {
     code : Text;

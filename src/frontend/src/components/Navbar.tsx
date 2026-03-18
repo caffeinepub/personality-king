@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "@tanstack/react-router";
-import { Crown } from "lucide-react";
 import { motion } from "motion/react";
 import { useLanguage } from "../contexts/LanguageContext";
 
@@ -10,14 +9,14 @@ export default function Navbar() {
 
   const navLinks = [
     { to: "/", label: "Home", labelHi: "होम" },
-    { to: "/types", label: "Personality Types", labelHi: "व्यक्तित्व प्रकार" },
-    { to: "/quiz", label: "Take Quiz", labelHi: "क्विज़ लें" },
+    { to: "/types", label: "Types", labelHi: "प्रकार" },
+    { to: "/quiz", label: "Quiz", labelHi: "क्विज़" },
   ];
 
   return (
     <header
-      className="sticky top-0 z-50 border-b border-border/50 backdrop-blur-xl"
-      style={{ background: "oklch(14 0.045 265 / 0.95)" }}
+      className="sticky top-0 z-50 bg-white border-b-4 border-foreground"
+      style={{ boxShadow: "0 4px 0 oklch(15 0.02 265)" }}
     >
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link
@@ -26,12 +25,19 @@ export default function Navbar() {
           className="flex items-center gap-2 group"
         >
           <motion.div
-            whileHover={{ rotate: 10, scale: 1.1 }}
+            whileHover={{ rotate: 15, scale: 1.15 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <Crown className="w-7 h-7 text-gold" />
+            <img
+              src="/assets/generated/crown-cartoon-transparent.dim_400x400.png"
+              alt="Crown"
+              className="w-10 h-10 object-contain"
+            />
           </motion.div>
-          <span className="font-display font-bold text-xl text-gradient-gold hidden sm:block">
+          <span
+            className="font-display text-xl text-primary hidden sm:block"
+            style={{ textShadow: "1px 1px 0 oklch(15 0.02 265)" }}
+          >
             {lang === "en" ? "Personality King" : "पर्सनैलिटी किंग"}
           </span>
         </Link>
@@ -48,20 +54,13 @@ export default function Navbar() {
                     ? "nav.types_link"
                     : "nav.quiz_link"
               }
-              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-full text-sm font-bold border-2 transition-all ${
                 location.pathname === link.to
-                  ? "text-gold bg-accent/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                  ? "bg-primary text-white border-foreground shadow-cartoon-sm"
+                  : "text-foreground border-transparent hover:border-foreground hover:bg-accent/50"
               }`}
             >
-              <span className="hidden sm:block">
-                {lang === "en" ? link.label : link.labelHi}
-              </span>
-              <span className="sm:hidden">
-                {lang === "en"
-                  ? link.label.split(" ")[0]
-                  : link.labelHi.split(" ")[0]}
-              </span>
+              {lang === "en" ? link.label : link.labelHi}
             </Link>
           ))}
 
@@ -70,7 +69,8 @@ export default function Navbar() {
             size="sm"
             onClick={toggle}
             data-ocid="nav.language_toggle"
-            className="ml-1 border-accent/40 text-accent hover:bg-accent hover:text-accent-foreground font-bold text-xs px-3"
+            className="ml-1 font-display font-bold text-sm px-4 border-2 border-foreground rounded-full hover:bg-accent/50"
+            style={{ boxShadow: "2px 2px 0 oklch(15 0.02 265)" }}
           >
             {lang === "en" ? "हिं" : "EN"}
           </Button>

@@ -1,6 +1,5 @@
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { useState } from "react";
@@ -23,6 +22,14 @@ const CATEGORY_HI: Record<string, string> = {
   Explorers: "अन्वेषक",
 };
 
+const CATEGORY_COLORS: Record<string, string> = {
+  All: "bg-primary text-white",
+  Analysts: "bg-analyst text-purple-700",
+  Diplomats: "bg-diplomat text-green-700",
+  Sentinels: "bg-sentinel text-blue-700",
+  Explorers: "bg-explorer text-amber-700",
+};
+
 export default function TypesPage() {
   const { lang, t } = useLanguage();
   const { data: types, isLoading } = useAllPersonalityTypes();
@@ -41,12 +48,13 @@ export default function TypesPage() {
         transition={{ duration: 0.5 }}
         className="text-center mb-10"
       >
-        <h1 className="font-display text-4xl md:text-5xl font-bold mb-3">
-          <span className="text-gradient-gold">
-            {t("16 Personality Types", "16 व्यक्तित्व प्रकार")}
-          </span>
+        <h1
+          className="font-display text-4xl md:text-5xl mb-3 text-primary"
+          style={{ textShadow: "2px 2px 0 oklch(15 0.02 265)" }}
+        >
+          {t("16 Personality Types", "16 व्यक्तित्व प्रकार")}
         </h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        <p className="text-foreground/70 text-lg max-w-2xl mx-auto font-body">
           {t(
             "Every person is unique — but we all share patterns. Explore all 16 MBTI types.",
             "हर व्यक्ति अद्वितीय है — लेकिन हम सभी में कुछ पैटर्न समान होते हैं। सभी 16 MBTI प्रकारों का अन्वेषण करें।",
@@ -54,24 +62,29 @@ export default function TypesPage() {
         </p>
       </motion.div>
 
-      <Tabs
-        value={activeCategory}
-        onValueChange={setActiveCategory}
-        className="mb-10"
-      >
-        <TabsList className="flex-wrap h-auto gap-1 p-1 bg-secondary/30">
-          {ALL_CATEGORIES.map((cat) => (
-            <TabsTrigger
-              key={cat}
-              value={cat}
-              data-ocid={`types.${cat.toLowerCase()}.tab`}
-              className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground"
-            >
-              {lang === "en" ? cat : CATEGORY_HI[cat]}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
+      {/* Category Filter Tabs */}
+      <div className="flex flex-wrap gap-2 justify-center mb-10">
+        {ALL_CATEGORIES.map((cat) => (
+          <button
+            type="button"
+            key={cat}
+            data-ocid={`types.${cat.toLowerCase()}.tab`}
+            onClick={() => setActiveCategory(cat)}
+            className={`font-display text-sm px-5 py-2 rounded-full border-2 border-foreground transition-all ${
+              activeCategory === cat
+                ? `${CATEGORY_COLORS[cat]} shadow-cartoon-sm`
+                : "bg-white text-foreground hover:bg-accent/30"
+            }`}
+            style={
+              activeCategory === cat
+                ? { boxShadow: "2px 2px 0 oklch(15 0.02 265)" }
+                : {}
+            }
+          >
+            {lang === "en" ? cat : CATEGORY_HI[cat]}
+          </button>
+        ))}
+      </div>
 
       {isLoading ? (
         <div
@@ -79,7 +92,7 @@ export default function TypesPage() {
           data-ocid="types.loading_state"
         >
           {["a", "b", "c", "d", "e", "f", "g", "h"].map((k) => (
-            <Skeleton key={k} className="h-44 rounded-xl" />
+            <Skeleton key={k} className="h-44 rounded-2xl" />
           ))}
         </div>
       ) : (
@@ -105,21 +118,24 @@ export default function TypesPage() {
             >
               <Link to="/types/$code" params={{ code: type.code }}>
                 <div
-                  className={`card-regal rounded-xl p-5 border bg-${getCategoryClass(type.category)} hover:scale-105 hover:glow-gold transition-all cursor-pointer h-full flex flex-col`}
+                  className={`card-regal p-5 bg-${getCategoryClass(type.category)} cursor-pointer h-full flex flex-col`}
                 >
                   <Badge
                     variant="outline"
-                    className={`self-start mb-3 text-xs category-${getCategoryClass(type.category)} border-current`}
+                    className={`self-start mb-3 text-xs category-${getCategoryClass(type.category)} border-current font-body border-2`}
                   >
                     {lang === "en" ? type.category : CATEGORY_HI[type.category]}
                   </Badge>
-                  <span className="font-display text-3xl font-bold text-gradient-gold block mb-1">
+                  <span
+                    className="font-display text-3xl text-primary block mb-1"
+                    style={{ textShadow: "1px 1px 0 oklch(15 0.02 265 / 0.3)" }}
+                  >
                     {type.code}
                   </span>
-                  <span className="text-sm font-semibold text-foreground/90 mb-1">
+                  <span className="text-sm font-bold text-foreground mb-1 font-body">
                     {lang === "en" ? type.englishName : type.hindiName}
                   </span>
-                  <p className="text-xs text-muted-foreground line-clamp-2 mt-auto">
+                  <p className="text-xs text-foreground/60 line-clamp-2 mt-auto font-body">
                     {lang === "en"
                       ? type.englishDescription
                       : type.hindiDescription}
